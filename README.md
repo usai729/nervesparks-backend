@@ -13,10 +13,10 @@
 
   /api/ud - The actions common to user and dealer - Create common REST endpoints for both user and dealership:<br>
 
-- `/api/ud/cars [GET]`<br>
-
-- `/api/ud/cars/:dealer [GET]`<br>
-- `/api/ud/deals/:dealer [GET]`<br>
+- `/api/ud/cars [GET]` To view all cars<br>
+- `/api/ud/cars/:dealer [GET]` To view all cars in a certain dealership <br>
+- `/api/ud/deals/:dealer [GET]` To add new vehicle to the list of owned/sold vehicles at user/dealership end after a deal is
+  complete<br>
 
   /api/user - To user actions - Create REST endpoints for user<br>
 
