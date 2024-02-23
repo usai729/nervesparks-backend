@@ -1,11 +1,11 @@
-const { cars, deals } = require('../controllers/user.controller');
-const { JWTVerification } = require('../utils/JWTVerification');
+const { cars, deals, dealers } = require("../controllers/user.controller");
+const { JWTVerification } = require("../utils/JWTVerification");
 
-const Router = require('express').Router();
+const Router = require("express").Router();
 
-Router.route('/dealers/:car');
-Router.route('/cars').get(JWTVerification, cars);
-Router.route('/deals/:car').get(deals);
+Router.route("/dealers/:car").get(dealers);
+Router.route("/cars").get(JWTVerification, cars);
+Router.route("/deals/:car").get(deals);
 
 /*
     /dealer/:car [GET]

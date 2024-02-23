@@ -1,58 +1,69 @@
-const { ObjectId } = require('mongodb');
+const { ObjectId } = require("mongodb");
 
 exports.dealers = async (req, res) => {
-	const { car } = req.params;
+  const { car } = req.params;
 
-	try {
-		const db = req.dbClient.db('nervespark-cluster-1');
-	} catch (e) {
-		console.log(e);
+  try {
+    const db = req.dbClient.db("nervespark-cluster-1");
+    const dealers_collection = db.collection("dealership");
 
-		return res.status(500).json({ msg: 'Internal Server Error' });
-	}
+    const dealers = await dealers_collection
+      .find({ cars: { $in: [car] } })
+      .toArray();
+
+    return res.status(200).json(dealers);
+  } catch (e) {
+    console.log(e);
+
+    return res.status(500).json({ msg: "err/Internal Server Error" });
+  }
 };
 
 exports.cars = async (req, res) => {
-	var data = [];
+  var data = [];
 
-	try {
-		const db = req.dbClient.db('nervespark-cluster-1');
+  try {
+    const db = req.dbClient.db("nervespark-cluster-1");
 
-		const userInfo = await db.collection('user').findOne({ _id: new ObjectId(req.user.id) });
+    const userInfo = await db
+      .collection("user")
+      .findOne({ _id: new ObjectId(req.user.id) });
 
-		const cars = await Promise.all(
-			userInfo.vehicle_info.map(async (vehicle_id) => {
-				return await db.collection('cars').findOne({ _id: new ObjectId(vehicle_id) });
-			})
-		);
-		const dealers = await Promise.all(
-			cars.map(async (car) => {
-				return await db
-					.collection('dealership')
-					.findOne({ 'cars._id': { $elemMatch: { _id: car._id } } });
-			})
-		);
+    const cars = await Promise.all(
+      userInfo.vehicle_info.map(async (vehicle_id) => {
+        return await db
+          .collection("cars")
+          .findOne({ _id: new ObjectId(vehicle_id) });
+      })
+    );
+    const dealers = await Promise.all(
+      cars.map(async (car) => {
+        return await db
+          .collection("dealership")
+          .findOne({ "cars._id": { $elemMatch: { _id: car._id } } });
+      })
+    );
 
-		return res.status(200).json({ cars, dealers });
-	} catch (e) {
-		console.log(e);
+    return res.status(200).json({ cars, dealers });
+  } catch (e) {
+    console.log(e);
 
-		return res.status(500).json({ msg: 'Internal Server Error' });
-	}
+    return res.status(500).json({ msg: "err/Internal Server Error" });
+  }
 };
 
 exports.deals = async (req, res) => {
-	const { car } = req.params;
+  const { car } = req.params;
 
-	try {
-		const db = req.dbClient.db('nervespark-cluster-1');
+  try {
+    const db = req.dbClient.db("nervespark-cluster-1");
 
-		const deals = await db.collection('deal').find({ car_id: car }).toArray();
+    const deals = await db.collection("deal").find({ car_id: car }).toArray();
 
-		return res.status(200).json({ msg: 'success/cars', deals });
-	} catch (e) {
-		console.log(e);
+    return res.status(200).json({ msg: "success/cars", deals });
+  } catch (e) {
+    console.log(e);
 
-		return res.status(500).json({ msg: 'Internal Server Error' });
-	}
+    return res.status(500).json({ msg: "err/Internal Server Error" });
+  }
 };

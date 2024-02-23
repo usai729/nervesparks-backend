@@ -15,8 +15,8 @@
 
 - `/api/ud/cars [GET]` To view all cars.<br>
 - `/api/ud/cars/:dealer [GET]` To view all cars in a certain dealership. <br>
-- `/api/ud/deals/:dealer [GET]` To add new vehicle to the list of owned/sold vehicles at user/dealership end after a deal is
-  complete.<br>
+- `/api/ud/deals/:dealer [GET]` To view all deals from a certain dealership. <br>
+- `/transac?car=&dealer= [POST]` To add new vehicle to the list of owned/sold vehicles at user/dealership end after a deal is complete. <br>
 
   /api/user - To user actions - Create REST endpoints for user<br>
 
@@ -38,7 +38,7 @@
 ```
 
   <br>
-  .env contents<br>
+  .env contents
 
 ```
 CONN_STR = ""
