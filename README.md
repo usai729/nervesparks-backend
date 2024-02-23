@@ -30,7 +30,7 @@
 - `/api/dealer/add/deal [POST]` To add deals to dealership.<br>
 - `/api/dealer/sold [GET]` To view all vehicles dealership has sold along with owner info.<br>
   <br>
-  Steps to start the backend server:<br>
+  Steps to start the backend server:
 
 ```
   npm install
