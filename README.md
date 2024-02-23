@@ -31,10 +31,12 @@
 - `/api/dealer/sold [GET]` To view all vehicles dealership has sold along with owner info.<br>
   <br>
   Steps to start the backend server:<br>
-- ```
+
+```
   npm install
-  ```
-- nodemon```
+  nodemon
+```
+
   <br>
   .env contents<br>
 
